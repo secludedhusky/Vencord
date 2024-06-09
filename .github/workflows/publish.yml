@@ -6,7 +6,7 @@ on:
 
 jobs:
     Publish:
-        if: github.repository == 'Vendicated/Vencord'
+        if: github.repository == 'secludedhusky/Vencord'
         runs-on: ubuntu-latest
 
         steps:
@@ -32,14 +32,4 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Build web
-              run: pnpm buildWebStandalone
-
-            - name: Publish extension
-              run: |
-                  cd dist/chromium-unpacked
-                  pnpx chrome-webstore-upload-cli@2.1.0 upload --auto-publish
-              env:
-                  EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
-                  CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
-                  CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
-                  REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+              run: pnpm buildWeb --standalone
